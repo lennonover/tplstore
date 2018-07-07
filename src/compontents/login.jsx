@@ -24,14 +24,13 @@ class Login extends React.Component {
     }
     shouldComponentUpdate() {
         /** */
-        //console.log(this.props.status.toJS().token)
         console.log("shouldComponentUpdate")
         return false
         
     }
     componentWillReceiveProps() {
-        debugger
-        this.props.status.toJS().token && this.props.history.push(`/home/${this.props.status.toJS().token}`); 
+        let {status } = this.props;
+        status.toJS().token && this.props.history.push(`/home/${status.toJS().token}`); 
         console.log("props componentWillReceiveProps")
     }
     loginfunc(e){
@@ -49,7 +48,6 @@ class Login extends React.Component {
         })
     }
     render(){
-        // console.log(this.props.status.toJS().token)
         return (
             <Loginbd>
                 <Logincenter>

@@ -9,8 +9,7 @@ export default (state = initialState, action) => {
         case "LOGIN_USER":
             return state.set('user',action.payload);
         case "LOGIN_USER_SUCCESS":
-            let nextstate = state.set('token',action.payload)
-            return nextstate;
+            return state.set('token',action.payload);
         case "LOGIN_USER_ERROR":
             return state.set('error',action.payload);
         default:

@@ -8,7 +8,6 @@ export function* loginuserAsync(){
     const user = "admin";
 
     const json = yield call(ServiceApi.login.bind(this,user),'login')
-
     if(json.code === 200){
         yield put(action.loginuserSuccess(json.token))
     }else{
