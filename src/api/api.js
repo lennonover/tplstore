@@ -1,13 +1,20 @@
 class ServiceApi {
-    static login(name) {
+    static login(data) {
         return new Promise((resolve) => {
-            setTimeout(()=>{
-                resolve({
-                    code:200,
-                    token:584848484848484
+            fetch("http://127.0.0.1:3008/api/login",{
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+              }).then(response => response.json())
+                .then(json => {
+                   console.log("登录 "+ data.username)
+                   resolve(json)
                 })
-                console.log("登录 "+ name)
-            },1000)
+                .catch(ex => console.log('parsing failed', ex));
+                
+            
         })
     }
 }

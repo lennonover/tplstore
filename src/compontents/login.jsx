@@ -35,7 +35,7 @@ class Login extends React.Component {
     }
     loginfunc(e){
         e.preventDefault()
-        this.props.actions.loginuser(this.state.username)
+        this.props.actions.loginuser({"username":this.state.username,"password":this.state.password})
     }
     usernameOnChange(event){
         this.setState({

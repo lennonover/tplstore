@@ -1,7 +1,7 @@
 let actions = {
-    loginuser : (user) => ({
+    loginuser : (payload) => ({
         type: 'LOGIN_USER', 
-        payload: user
+        payload
     }),
     loginuserSuccess : (token) => ({
         type: 'LOGIN_USER_SUCCESS', 

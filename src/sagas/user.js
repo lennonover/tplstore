@@ -5,9 +5,7 @@ import ServiceApi from '../api/api'
 
 export function* loginuserAsync(){
     const auth = yield select(getUser);
-    const user = "admin";
-
-    const json = yield call(ServiceApi.login.bind(this,user),'login')
+    const json = yield call(ServiceApi.login.bind(this,auth.toJS()),'login')
     if(json.code === 200){
         yield put(action.loginuserSuccess(json.token))
     }else{
