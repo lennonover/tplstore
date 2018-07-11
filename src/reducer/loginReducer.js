@@ -11,10 +11,13 @@ export default (state = initialState, action) => {
             return state.merge({
                 'username':action.payload.username,
                 'password':action.payload.password
-        });
+            });
         case "LOGIN_USER_SUCCESS":
-            return state.set('token',action.payload);
-        case "LOGIN_USER_ERROR":
+            return state.merge({
+                'error':"",
+                'token':action.payload
+            });
+        case "LOGIN_USER_FAILURE":
             return state.set('error',action.payload);
         default:
             return state;

@@ -22,7 +22,7 @@ router.post('/login', function(req, res, next) {
     console.log(err,data)
       if(!data) {
         res.json({
-          code:404,
+          state:0,
           error:"用户名不存在"
         }) 
         return;
@@ -30,13 +30,13 @@ router.post('/login', function(req, res, next) {
       if(data.password === password){
         req.session && (req.session.user = {username: username}); 
           res.json({
-            code:200,
+            state:1,
             token:5848484848
           }) 
           return
       }
       res.json({
-        code:404,
+        state:0,
         error:"密码不正确"
       }) 
   })

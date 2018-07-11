@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { message} from 'antd';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import styled from 'styled-components'
@@ -24,18 +24,20 @@ class Login extends React.Component {
     }
     shouldComponentUpdate() {
         /** */
-        console.log("shouldComponentUpdate")
-        return false
-        
+        return false;
     }
-    componentWillReceiveProps() {
-        let {status } = this.props;
+    componentWillReceiveProps(nextProps) {
+        let {status} = nextProps;
         status.toJS().token && this.props.history.push(`/home/${status.toJS().token}`); 
-        console.log("props componentWillReceiveProps")
+        status.toJS().error && (status.toJS().error != this.props.status.toJS().error) && message.error(status.toJS().error);
     }
     loginfunc(e){
         e.preventDefault()
-        this.props.actions.loginuser({"username":this.state.username,"password":this.state.password})
+        if(!this.state.username || !this.state.password){
+            message.error("用户名或密码不能为空")
+        }else {
+            this.props.actions.loginuser({"username":this.state.username,"password":this.state.password})            
+        }
     }
     usernameOnChange(event){
         this.setState({
