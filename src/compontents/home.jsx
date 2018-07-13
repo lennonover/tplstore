@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux'
 import styled from 'styled-components'
 import actions from '../action/action'
 import Item from './modelitem'
+import ServiceApi from '../api/api'
 
 import 'antd/dist/antd.css'
 
@@ -21,7 +22,8 @@ class Home extends React.Component {
             },{
                 typecname:"网安事业二部",
                 typeename:"way2"
-            }]
+            }],
+            modelResult:[]
         }
         this.searchFunc = this.searchFunc.bind(this);
         this.onchangeModelname = this.onchangeModelname.bind(this);
@@ -32,6 +34,20 @@ class Home extends React.Component {
     componentWillMount() {
         /** */
         
+    }
+    componentDidMount() {
+        /** */
+        var that = this;
+        ServiceApi.getTpl({user:"admin"}).then(function(Json){
+            that.setState({
+                modelResult : Json.data
+            })
+        })
+    }
+    shouldComponentUpdate(nextdata) {
+        /** */
+        console.log("shouldComponentUpdate")
+        return true;
     }
     searchFunc(){
         console.log(this.state)
@@ -56,7 +72,6 @@ class Home extends React.Component {
     }
     render(){
         const Option = Select.Option
-        let {status} = this.props
         return (
             <ModelBd>
                 <ModelHd>
@@ -76,7 +91,7 @@ class Home extends React.Component {
                 </ModelHd>
                 <ModelBottom className="clearfix">
                     {
-                        status.modelResult.map((item,i) =>{
+                        this.state.modelResult.map((item,i) =>{
                             return (
                                 <Item key={i} name={item.name} time={item.time} imgsrc={item.imgsrc} downsrc={item.downsrc} looksrc={item.looksrc} issuessrc={item.issuessrc}/>
                             )

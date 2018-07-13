@@ -17,5 +17,20 @@ class ServiceApi {
             
         })
     }
+    static getTpl(data) {
+        return new Promise((resolve) => {
+            fetch("http://127.0.0.1:3008/api/result",{
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+              }).then(response => response.json())
+                .then(json => {
+                   resolve(json)
+                })
+                .catch(ex => console.log('parsing failed', ex));
+        })
+    }
 }
 export default ServiceApi;

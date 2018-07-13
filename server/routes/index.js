@@ -9,8 +9,6 @@ router.get('/', function(req, res, next) {
 router.post('/login', function(req, res, next) {
   var username = req.body.username;
   var password = req.body.password;
-  console.log(username)
-  
   var URL = 'mongodb://localhost:14701/user';
   var db = mongoose.createConnection(URL);
   var Schema = new mongoose.Schema({
@@ -31,7 +29,7 @@ router.post('/login', function(req, res, next) {
         req.session && (req.session.user = {username: username}); 
           res.json({
             state:1,
-            token:5848484848
+            token:data.username
           }) 
           return
       }
@@ -39,6 +37,29 @@ router.post('/login', function(req, res, next) {
         state:0,
         error:"密码不正确"
       }) 
+  })
+  
+});
+router.post('/result', function(req, res, next) {
+  var contion = req.body.user ? {user:req.body.user}:{};
+  var URL = 'mongodb://localhost:14701/user';
+  var db = mongoose.createConnection(URL);
+  var Schema = new mongoose.Schema({
+      user: String
+  });
+  var Templates = db.model('templates',Schema);
+  Templates.find(contion, function (err, data) {
+    if(data && data.length >=0 ) {
+      res.json({
+        state:1,
+        data:data
+      }) 
+    }else{
+      res.json({
+        state:0,
+        data:"请求异常"
+      }) 
+    } 
   })
   
 });
